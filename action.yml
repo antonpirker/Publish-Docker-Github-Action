@@ -35,6 +35,12 @@ inputs:
   tag_names:
     description: 'Use tag_names when you want to push tags/release by their git name'
     required: false
+  build:
+    description: 'If set to false disables the `docker build` step. Defaults to true'
+    required: false
+  push:
+    description: 'If set to false disables the `docker push` step. Defaults to true'
+    required: false
 outputs:
   tag:
     description: 'Is the tag, which was pushed'
