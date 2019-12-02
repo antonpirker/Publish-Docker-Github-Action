@@ -1,5 +1,5 @@
 name: 'Publish Docker'
-author: 'Lars Gohr'
+author: 'Lars Gohr & Anton Pirker'
 branding:
   icon: 'anchor'
   color: 'blue'
@@ -34,6 +34,12 @@ inputs:
     required: false
   tag_names:
     description: 'Use tag_names when you want to push tags/release by their git name'
+    required: false
+  build:
+    description: 'Flag for disabling the building of the container'
+    required: false
+  push:
+    description: 'Flag for disabling the pushing of the container'
     required: false
 outputs:
   tag:

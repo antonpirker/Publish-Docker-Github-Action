@@ -1,6 +1,6 @@
 FROM docker:19.03.2 as runtime
-LABEL "repository"="https://github.com/elgohr/Publish-Docker-Github-Action"
-LABEL "maintainer"="Lars Gohr"
+LABEL "repository"="https://github.com/antonpirker/Publish-Docker-Github-Action"
+LABEL "maintainer"="Lars Gohr & Anton Pirker"
 
 RUN apk update \
   && apk upgrade \

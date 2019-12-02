@@ -127,15 +127,28 @@ function pushWithSnapshot() {
   local SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-6)
   local SNAPSHOT_TAG="${TIMESTAMP}${SHORT_SHA}"
   local SHA_DOCKER_NAME="${INPUT_NAME}:${SNAPSHOT_TAG}"
-  docker build $BUILDPARAMS -t ${DOCKERNAME} -t ${SHA_DOCKER_NAME} ${CONTEXT}
-  docker push ${DOCKERNAME}
-  docker push ${SHA_DOCKER_NAME}
+
+  if usesBoolean "${INPUT_DISABLE_BUILD}"; then
+    echo "Building of container was disabled by disable_input parameter"
+    docker build $BUILDPARAMS -t ${DOCKERNAME} -t ${SHA_DOCKER_NAME} ${CONTEXT}
+  fi
+  if usesBoolean "${INPUT_DISABLE_PUSH}"; then
+    echo "Pushing of container was disabled by disable_push parameter"
+    docker push ${DOCKERNAME}
+    docker push ${SHA_DOCKER_NAME}
+  fi
   echo ::set-output name=snapshot-tag::"${SNAPSHOT_TAG}"
 }
 
 function pushWithoutSnapshot() {
-  docker build $BUILDPARAMS -t ${DOCKERNAME} ${CONTEXT}
-  docker push ${DOCKERNAME}
+  if usesBoolean "${INPUT_DISABLE_BUILD}"; then
+    echo "Building of container was disabled by disable_input parameter"
+    docker build $BUILDPARAMS -t ${DOCKERNAME} ${CONTEXT}
+  fi
+  if usesBoolean "${INPUT_DISABLE_PUSH}"; then
+    echo "Pushing of container was disabled by disable_push parameter"
+    docker push ${DOCKERNAME}
+  fi
 }
 
 main
