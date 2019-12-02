@@ -8,6 +8,14 @@ function main() {
   sanitize "${INPUT_USERNAME}" "username"
   sanitize "${INPUT_PASSWORD}" "password"
 
+  if notset "${INPUT_BUILD}"; then
+    INPUT_BUILD=true
+  fi
+
+  if notset "${INPUT_PUSH}"; then
+    INPUT_PUSH=true
+  fi
+
   REGISTRY_NO_PROTOCOL=$(echo "${INPUT_REGISTRY}" | sed -e 's/^https:\/\///g')
   if uses "${INPUT_REGISTRY}" && ! isPartOfTheName "${REGISTRY_NO_PROTOCOL}"; then
     INPUT_NAME="${REGISTRY_NO_PROTOCOL}/${INPUT_NAME}"
@@ -114,6 +122,10 @@ function useBuildCache() {
   fi
 }
 
+function notset()  {
+  [ -z "${1}" ]
+}
+
 function uses() {
   [ ! -z "${1}" ]
 }
@@ -128,21 +140,25 @@ function pushWithSnapshot() {
   local SNAPSHOT_TAG="${TIMESTAMP}${SHORT_SHA}"
   local SHA_DOCKER_NAME="${INPUT_NAME}:${SNAPSHOT_TAG}"
 
-  if usesBoolean "${INPUT_DISABLE_BUILD}"; then
+
+  if usesBoolean "${INPUT_BUILD}"; then
     docker build $BUILDPARAMS -t ${DOCKERNAME} -t ${SHA_DOCKER_NAME} ${CONTEXT}
   fi
-  if usesBoolean "${INPUT_DISABLE_PUSH}"; then
+
+  if usesBoolean "${INPUT_PUSH}"; then
     docker push ${DOCKERNAME}
     docker push ${SHA_DOCKER_NAME}
   fi
+  
   echo ::set-output name=snapshot-tag::"${SNAPSHOT_TAG}"
 }
 
 function pushWithoutSnapshot() {
-  if usesBoolean "${INPUT_DISABLE_BUILD}"; then
+  if usesBoolean "${INPUT_BUILD}"; then
     docker build $BUILDPARAMS -t ${DOCKERNAME} ${CONTEXT}
   fi
-  if usesBoolean "${INPUT_DISABLE_PUSH}"; then
+
+  if usesBoolean "${INPUT_PUSH}"; then
     docker push ${DOCKERNAME}
   fi
 }
