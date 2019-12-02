@@ -129,11 +129,9 @@ function pushWithSnapshot() {
   local SHA_DOCKER_NAME="${INPUT_NAME}:${SNAPSHOT_TAG}"
 
   if usesBoolean "${INPUT_DISABLE_BUILD}"; then
-    echo "Building of container was disabled by disable_input parameter"
     docker build $BUILDPARAMS -t ${DOCKERNAME} -t ${SHA_DOCKER_NAME} ${CONTEXT}
   fi
   if usesBoolean "${INPUT_DISABLE_PUSH}"; then
-    echo "Pushing of container was disabled by disable_push parameter"
     docker push ${DOCKERNAME}
     docker push ${SHA_DOCKER_NAME}
   fi
@@ -142,11 +140,9 @@ function pushWithSnapshot() {
 
 function pushWithoutSnapshot() {
   if usesBoolean "${INPUT_DISABLE_BUILD}"; then
-    echo "Building of container was disabled by disable_input parameter"
     docker build $BUILDPARAMS -t ${DOCKERNAME} ${CONTEXT}
   fi
   if usesBoolean "${INPUT_DISABLE_PUSH}"; then
-    echo "Pushing of container was disabled by disable_push parameter"
     docker push ${DOCKERNAME}
   fi
 }

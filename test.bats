@@ -11,6 +11,8 @@ setup(){
   export INPUT_USERNAME='USERNAME'
   export INPUT_PASSWORD='PASSWORD'
   export INPUT_NAME='my/repository'
+  export INPUT_DISABLE_BUILD='false'
+  export INPUT_DISABLE_PUSH='false'
 }
 
 teardown() {
