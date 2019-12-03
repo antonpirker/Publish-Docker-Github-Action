@@ -138,14 +138,14 @@ teardown() {
   run /entrypoint.sh
 
   expectStdOut "
-::set-output name=snapshot-tag::1970-01-01-01-12169e
+::set-output name=snapshot-tag::latest-1970-01-01-01-12169e
 ::set-output name=tag::latest"
 
   expectMockCalled "/usr/local/bin/docker login -u USERNAME --password-stdin
 /usr/bin/date +%Y-%m-%d-%H-
-/usr/local/bin/docker build -t my/repository:latest -t my/repository:1970-01-01-01-12169e .
+/usr/local/bin/docker build -t my/repository:latest -t my/repository:latest-1970-01-01-01-12169e .
 /usr/local/bin/docker push my/repository:latest
-/usr/local/bin/docker push my/repository:1970-01-01-01-12169e
+/usr/local/bin/docker push my/repository:latest-1970-01-01-01-12169e
 /usr/local/bin/docker logout"
 }
 
@@ -184,9 +184,9 @@ teardown() {
   expectMockCalled "/usr/local/bin/docker login -u USERNAME --password-stdin
 /usr/local/bin/docker pull my/repository:latest
 /usr/bin/date +%Y-%m-%d-%H-
-/usr/local/bin/docker build --cache-from my/repository:latest -t my/repository:latest -t my/repository:1970-01-01-01-12169e .
+/usr/local/bin/docker build --cache-from my/repository:latest -t my/repository:latest -t my/repository:latest-1970-01-01-01-12169e .
 /usr/local/bin/docker push my/repository:latest
-/usr/local/bin/docker push my/repository:1970-01-01-01-12169e
+/usr/local/bin/docker push my/repository:latest-1970-01-01-01-12169e
 /usr/local/bin/docker logout"
 }
 
@@ -206,9 +206,9 @@ teardown() {
   expectMockCalled "/usr/local/bin/docker login -u USERNAME --password-stdin
 /usr/local/bin/docker pull my/repository:latest
 /usr/bin/date +%Y-%m-%d-%H-
-/usr/local/bin/docker build -t my/repository:latest -t my/repository:1970-01-01-01-12169e .
+/usr/local/bin/docker build -t my/repository:latest -t my/repository:latest-1970-01-01-01-12169e .
 /usr/local/bin/docker push my/repository:latest
-/usr/local/bin/docker push my/repository:1970-01-01-01-12169e
+/usr/local/bin/docker push my/repository:latest-1970-01-01-01-12169e
 /usr/local/bin/docker logout"
 }
 
@@ -226,9 +226,9 @@ teardown() {
 
   expectMockCalled "/usr/local/bin/docker login -u USERNAME --password-stdin
 /usr/bin/date +%Y-%m-%d-%H-
-/usr/local/bin/docker build -f MyDockerFileName -t my/repository:latest -t my/repository:1970-01-01-01-12169e .
+/usr/local/bin/docker build -f MyDockerFileName -t my/repository:latest -t my/repository:latest-1970-01-01-01-12169e .
 /usr/local/bin/docker push my/repository:latest
-/usr/local/bin/docker push my/repository:1970-01-01-01-12169e
+/usr/local/bin/docker push my/repository:latest-1970-01-01-01-12169e
 /usr/local/bin/docker logout"
 }
 
@@ -248,9 +248,9 @@ teardown() {
   expectMockCalled "/usr/local/bin/docker login -u USERNAME --password-stdin
 /usr/local/bin/docker pull my/repository:latest
 /usr/bin/date +%Y-%m-%d-%H-
-/usr/local/bin/docker build -f MyDockerFileName --cache-from my/repository:latest -t my/repository:latest -t my/repository:1970-01-01-01-12169e .
+/usr/local/bin/docker build -f MyDockerFileName --cache-from my/repository:latest -t my/repository:latest -t my/repository:latest-1970-01-01-01-12169e .
 /usr/local/bin/docker push my/repository:latest
-/usr/local/bin/docker push my/repository:1970-01-01-01-12169e
+/usr/local/bin/docker push my/repository:latest-1970-01-01-01-12169e
 /usr/local/bin/docker logout"
 }
 
@@ -441,9 +441,9 @@ teardown() {
 
   expectMockCalled "/usr/local/bin/docker login -u USERNAME --password-stdin
 /usr/bin/date +%Y-%m-%d-%H-
-/usr/local/bin/docker build -t my/repository:latest -t my/repository:1970-01-01-01-12169e /myContextFolder
+/usr/local/bin/docker build -t my/repository:latest -t my/repository:latest-1970-01-01-01-12169e /myContextFolder
 /usr/local/bin/docker push my/repository:latest
-/usr/local/bin/docker push my/repository:1970-01-01-01-12169e
+/usr/local/bin/docker push my/repository:latest-1970-01-01-01-12169e
 /usr/local/bin/docker logout"
 }
 
