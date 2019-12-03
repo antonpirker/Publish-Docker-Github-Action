@@ -135,7 +135,7 @@ function usesBoolean() {
 }
 
 function pushWithSnapshot() {
-  local TIMESTAMP=`date +%Y%m%d%H%M%S`
+  local TIMESTAMP=`date +%Y-%m-%d-%H-`
   local SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-6)
   local SNAPSHOT_TAG="${TIMESTAMP}${SHORT_SHA}"
   local SHA_DOCKER_NAME="${INPUT_NAME}:${SNAPSHOT_TAG}"
